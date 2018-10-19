@@ -5,6 +5,10 @@
     apt_repository: 
       repo: deb http://deb.debian.org/debian/ unstable main
       state: present
+  - name: install linux-headers
+    apt:
+      name: linux-headers-amd64
+      state: latest
   - name: limit unstable repository priority
     template:
       dest: /etc/apt/preferences.d/limit-unstable
