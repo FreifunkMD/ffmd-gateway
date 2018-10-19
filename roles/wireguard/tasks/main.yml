@@ -1,5 +1,6 @@
 ---
-task:
+- hosts: all
+  tasks:
   - name: Add debian unstable repository (wireguard)
     apt_repository: 
       repo: deb http://deb.debian.org/debian/ unstable main
@@ -14,5 +15,7 @@ task:
       state: latest
       default_release: unstable
       update_cache: yes
-  hosts: all
- 
+  - name: install iptables
+    apt:
+      name: iptables
+      state: latest
