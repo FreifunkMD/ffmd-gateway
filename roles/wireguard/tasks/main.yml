@@ -23,3 +23,8 @@
     apt:
       name: iptables
       state: latest
+  - name: install dkms
+    apt:
+      name: dkms
+      state: latest
+
