@@ -1,0 +1,29 @@
+---
+- hosts: all
+  tasks:
+  - name: install linux-headers
+    apt:
+      name: linux-headers-amd64
+      state: latest
+  - name: limit unstable repository priority
+    template:
+      dest: /etc/apt/preferences.d/limit-unstable
+      src: apt_unstable.j2
+  - name: install git
+    apt:
+      name: git
+      state: latest
+      default_release: unstable
+      update_cache: yes
+  - name: install build-essential
+    apt:
+      name: build-essential
+      state: latest
+  - name: install iptables
+    apt:
+      name: iptables
+      state: latest
+  - name: install dkms
+    apt:
+      name: dkms
+      state: latest

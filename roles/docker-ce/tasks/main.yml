@@ -1,0 +1,46 @@
+---
+- tasks:
+  - name: apt-transport-https
+    apt:
+      name: apt-transport-https
+      state: latest
+      update_cache: yes
+  - name: ca-certificates
+    apt:
+      name: ca-certificates
+      state: latest
+  - name: ca-certificates
+    apt:
+      name: curl
+      state: latest
+  - name: gnupg2
+    apt:
+      name: gnupg2
+      state: latest
+  - name: git
+    apt:
+      name: git
+      state: latest
+  - name: software-properties-common
+    apt:
+      name: software-properties-common
+      state: latest
+  - name: Add dockerce repository key
+    apt_key: 
+      url: https://download.docker.com/linux/debian/gpg
+      id: 0EBFCD88
+      state: present
+  - shell: lsb_release -cs
+    register: LSB
+  - name: Add docker-ce repository
+    apt_repository: 
+      repo: deb https://download.docker.com/linux/debian {{ LSB.stdout }} stable
+      state: present
+  - name: install docker
+    apt:
+      name: docker-ce
+      state: latest
+      update_cache: yes
+
+  hosts: all
+

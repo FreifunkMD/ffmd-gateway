@@ -1,0 +1,30 @@
+---
+- hosts: all
+  tasks:
+  - name: Add debian unstable repository (wireguard)
+    apt_repository: 
+      repo: deb http://deb.debian.org/debian/ unstable main
+      state: present
+  - name: install linux-headers
+    apt:
+      name: linux-headers-amd64
+      state: latest
+  - name: limit unstable repository priority
+    template:
+      dest: /etc/apt/preferences.d/limit-unstable
+      src: apt_unstable.j2
+  - name: install wireguard
+    apt:
+      name: wireguard
+      state: latest
+      default_release: unstable
+      update_cache: yes
+  - name: install iptables
+    apt:
+      name: iptables
+      state: latest
+  - name: install dkms
+    apt:
+      name: dkms
+      state: latest
+
